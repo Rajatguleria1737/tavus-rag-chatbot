@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tavus RAG Chatbot</title>
+</head>
+
+<body>
+
+<h1>Tavus AI Assistant</h1>
+
+<button onclick="startConversation()">
+    Start Conversation
+</button>
+
+<div id="conversation-info"></div>
+
+<script>
+
+async function startConversation() {
+
+    const response = await fetch(
+        "http://localhost:8000/create-conversation",
+        {
+            method: "POST"
+        }
+    );
+
+    const data = await response.json();
+
+    document.getElementById(
+        "conversation-info"
+    ).innerHTML =
+        `
+        <p>
+            Conversation Created
+        </p>
+
+        <p>
+            ID: ${data.conversation_id}
+        </p>
+
+        <p>
+            URL: ${data.conversation_url}
+        </p>
+        `;
+
+    /*
+      Example:
+
+      TavusWidget.init({
+          conversationId:
+              data.conversation_id
+      });
+
+      OR
+
+      window.location =
+          data.conversation_url;
+    */
+}
+
+</script>
+
+</body>
+</html>
